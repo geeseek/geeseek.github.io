@@ -1,0 +1,10 @@
+---
+layout: post
+title:  "try latex in post"
+date:   2013-12-26 21:25:37
+categories: jekyll update
+---
+
+##测试一下数学公式显示##
+
+\\[ Y = 1 - \frac{1}{{e}^{-{\omega }^{T}*X}} \\]
