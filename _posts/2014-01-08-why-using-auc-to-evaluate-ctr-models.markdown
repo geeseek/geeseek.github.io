@@ -25,7 +25,7 @@ $$
 
 如果将ctr预估按照一般的回归问题处理（如使用linear regression)，面临的问题是一般的linear regression的值域范围的是实数域，对于整个实数域的敏感程度是相同的，所以直接使用一般的linear regression来建立ctr预估模型很容易受到noise的影响。以Andrew Ng课程中的例子图1.b所示，增加一个噪音点后，拟合的直线马上偏移。另外，由于目标函数是条件概率，训练样本中会存在特征x完全相同，y为+1和-1的样本都出现的问题，在linear regression 看来是一个矛盾的问题，而Logistic Regression很好的解决解决了这个问题[1]。
 
-![Alt text](data:image,local://linear_regression_noise.gif)
+![Alt text]({{site.img_url}}/linear_regression_noise.gif)
 
 #### 2. LR模型的cost function不使用平方差
 一般回归问题采用的cost function是预测值和实际值的平方差，而LR模型无法采用平方差作为cost function的原因是由于基于LR模型公式的平方差函数是非凸函数，无法方便的获得全局最优解。

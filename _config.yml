@@ -1,3 +1,4 @@
 name: zaifu 
 markdown: kramdown 
 pygments: true
+img_url: http://geeseek.github.com/imgs
