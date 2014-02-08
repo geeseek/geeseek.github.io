@@ -30,7 +30,7 @@ LR模型采用的cost function是采用cross-entropy error function（也有叫�
 
 假设y1=+1, y2=-1, ...yn=-1，对应的likelihood为
 
-\\[ P({x}_{1})P({y}_{1}|{x}_{1}) \bullet P({x}_{2})P({y}_{2}|{x}_{2}) ... \bullet P({x}_{n})P({y}_{n}|{x}_{n}) = P({x}_{1})f({x}_{1}) \bullet P({x}_{2})(1-f({x}_{2})) ... \bullet P({x}_{n})(1-f({x}_{n})) \\]
+\[ P({x}_{1})P({y}_{1}|{x}_{1}) \bullet P({x}_{2})P({y}_{2}|{x}_{2}) ... \bullet P({x}_{n})P({y}_{n}|{x}_{n}) = P({x}_{1})f({x}_{1}) \bullet P({x}_{2})(1-f({x}_{2})) ... \bullet P({x}_{n})(1-f({x}_{n})) \]
   所以最优假设是
 
 \\[ g = argmax(likelihood(h)) \\]
