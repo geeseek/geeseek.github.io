@@ -14,10 +14,10 @@ CTR预估的目标函数为
 \\[ f(x) = P(+1|x) \\]
 特殊之处在于目标函数的值域为[0,1]， 而且由于是条件概率，具有如下特性
 
-\\[ P(y|x)=\left\{\begin{matrix}
+\[ P(y|x)=\left\{\begin{matrix}
                                     f(x)\;\;for\,y=+1\\
                                     1-f(x)\;\;for\,y=-1
-\end{matrix}\right.  \\]
+\end{matrix}\right.  \]
 
 如果将ctr预估按照一般的回归问题处理（如使用linear regression)，面临的问题是一般的linear regression的值域范围的是实数域，对于整个实数域的敏感程度是相同的，所以直接使用一般的linear regression来建立ctr预估模型很容易受到noise的影响。以Andrew Ng课程中的例子图1.b所示，增加一个噪音点后，拟合的直线马上偏移。而Logistic Regression很好的解决解决了这个问题[1]。
 
