@@ -50,7 +50,7 @@ LR模型采用的cost function是采用cross-entropy error function（也有叫�
 
  通过取负，取对数，可以将Cost Function转化为
 
- \\[ {E}(w)={min}_{w} \frac{1}{N}\sum_{i=1}^{N}ln(1+exp(-{y}_{i}{w}^{T}{x}_{i})) \\]
+\\[ {E}(w)={min}_{w} \frac{1}{N}\sum_{i=1}^{N}ln(1+exp(-{y}_{i}{w}^{T}{x}_{i})) \\]
 
 我们假设有4个样本，y1=+1, y2=+1, y3=-1, y4=-1。
 
