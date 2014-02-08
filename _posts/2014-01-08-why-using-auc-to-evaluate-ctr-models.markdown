@@ -33,32 +33,43 @@ $$
 LR模型采用的cost function是采用cross-entropy error function（也有叫做对数似然函数的），error measure是模型假设h产生训练样本D的可能性（likelihood)[2]。
 
 假设y1=+1, y2=-1, ...yn=-1，对应的likelihood为
+
 $$
     P({x}_{1})P({y}_{1}|{x}_{1}) \bullet P({x}_{2})P({y}_{2}|{x}_{2}) ... \bullet P({x}_{n})P({y}_{n}|{x}_{n}) = P({x}_{1})f({x}_{1}) \bullet P({x}_{2})(1-f({x}_{2})) ... \bullet P({x}_{n})(1-f({x}_{n}))
 $$
+
   所以最优假设是
+
 $$
     g = argmax(likelihood(h))
 $$
+
 而对于LR假设存在如下特性
+
 $$
     1 - h(x) = h(-x)
 $$
+
 所以likelihood(h)在LR假设下可以变为
+
 $$
 likelihood(h) = P({x}_{1})h({x}_{1}) \bullet P({x}_{2})h(-{x}_{2})...\bullet P({x}_{n})h(-{x}_{n}) \\
               = P({x}_{1})h({x}_{1}{y}_{1}) \bullet P({x}_{2})h({x}_{2}{y}_{2}) ... \bullet P({x}_{2})h({x}_{n}{y}_{n}) \\
               \propto \prod_{i=1}^{n}h({x}_{i}{y}_{i})
 $$
+
 所以优化目标变为
+
 $$
 {max}_{w} Likelihood(h) \propto \prod_{i=1}^{n}\theta({y}_{i}{w}^{T}{x}_{i})
 $$
+
 $$
 \theta(t) = \frac{1}{1 + exp(-t)}
 $$
 
  通过取负，取对数，可以将Cost Function转化为
+
  $$
  {E}(w)={min}_{w} \frac{1}{N}\sum_{i=1}^{N}ln(1+exp(-{y}_{i}{w}^{T}{x}_{i}))
  $$
@@ -98,6 +109,7 @@ $$
 
 
 ####参考文献
+
 [1]逻辑回归模型(Logistic Regression, LR)基础。 http://www.cnblogs.com/sparkwen/p/3441197.html
 
 [2] Machine Learning Foundation, Coursera.
