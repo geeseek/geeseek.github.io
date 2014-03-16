@@ -53,7 +53,7 @@ $$
 
 即超出误差范围的概率更小了。
 
-实际上，在统计学里，有一个著名的理论** hoeffding inequality **来衡量误差范围和超出误差范围的概率，定义如下
+实际上，在统计学里，有一个著名的理论**hoeffding inequality**来衡量误差范围和超出误差范围的概率，定义如下
 
 $$
    P[|u - v| > \varepsilon ] < 2exp(-2\varepsilon ^2 N)
