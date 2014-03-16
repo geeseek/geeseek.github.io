@@ -22,12 +22,15 @@ $$
 $$
 
 嗯，如果我们并不要求u=v, 而是放宽要求，v和u大致相等即可，譬如v的范围为[u-0.1, u+0.1]，即[0.8, 1],  也即v >= 0.8, N = 10的情况下，概率为
+
 $$
 \binom{10}{10}u^{10} + \binom{9}{10}u^{9}(1-u) + \binom{8}{10}u^{8}(1-u)^{2} \approx 0.93
 $$
+
 可以看到，u和v大致相等的概率比要求u=v的概率提高很多。也就是说|u - v| <= 0.1的概率大概为0.93， 反之就是 |u-v| > 0.1的概率为 1-0.93=0.07
 
 另一方面，如果我们能够看到更多的局部数据，如N = 100, 则对应的概率为
+
 $$
 \binom{100}{100}u^{100} + ...  + \binom{80}{100}u^{80}(1-u)^{20} \approx 0.99
 $$
@@ -35,14 +38,17 @@ $$
 可以看出，N的增大使得u和v大致相等的概率也增大了。对应|u-v]>0.1的概率为0.01，即超出误差范围的概率更小了。
 
 实际上，在统计学里，有一个著名的理论*** hoeffding inequality ***来衡量误差范围和超出误差范围的概率，定义如下
+
 $$
    P[|u - v| > \varepsilon ] < 2exp(-2\varepsilon ^2 N)
 $$
+
 在u未知的情况下，虽然不能求出具体u和v误差的大小，却可以给出超出误差范围出现的概率边界。以上一个例子来看
 
 $$
    P[|u-v| > 0.1] < 2*exp(-2*0.01*100) = 0.27
 $$
+
 而上个例子的计算的真实概率为0.01，确实在hoeffding inequality给定的范围之内。
 
 
@@ -50,6 +56,7 @@ $$
 回到机器学习问题上来，需要解决的是保证在局部数据（样本）表现良好的模型在整体数据上也能表现良好。我们假设每个样本都是一个弹珠，如果学习后预测的值h(x)与实际值f(x)不同，这个弹珠就是红色，否则为绿色，这样预测的错误率就是上一节中红色弹珠的比例。在样本中的错误率为v，在全部数据中的错误率为u，这样通过hoeffdin inequality可以估算模型在实际中（在全部数据上）的表现。
 
 这里的v我们叫做in-sample error
+
 $$
    E_{in}(h) = \frac{1}{N}\sum_{n=1}^{N}sign(h(x_{n})\neq f(x_{n}))
 $$
@@ -57,6 +64,7 @@ $$
 相应的u叫做out-of-sample error。
 
 对于一个固定的预测函数h(x)(我们可以将这个函数称为对真实情况的一个假设)而言，in sample error与out of sample error的关系满足
+
 $$
  P[|{E}_{in} - {E}_{out}| > \varepsilon ] < 2exp(-2\varepsilon ^2 N)
 $$
@@ -70,21 +78,27 @@ hoeffding inequality成立的一个重要前提是局部（样本）数据必须
 这里正面出现的次数就等同于前面提到的v(in-sample error)， 2)的选择等同于机器学习算法中选择表现最好的假设（模型）， 这种选择已经破坏了hoeffding inequality要求的v数据分布保持不变的前提。
 
 我们现在需要重新考虑引入假设选择过程后如何保证hoeffding inequality也能适应。假设我们有M个候选假设（预测函数），机器学习算法会根据样本数据选择表现最好的假设g，因为
+
 $$
 \left |E_{in}(g) - E_{out}(g) \right |  > \varepsilon  \Rightarrow  \left |E_{in}(h_{1}) - E_{out}(h_{1}) \right | > \varepsilon  \; or \; \left |E_{in}(h_{2}) - E_{out}(h_{2}) \right | > \varepsilon  \; or \; ... \;or \; \left |E_{in}(h_{M}) - E_{out}(h_{M}) \right | > \varepsilon 
 $$
 
 概率上有两个定律
+
 $$
 if \; A \Rightarrow B \; , then \; P[A] \leq P[B] 
 $$
+
 $$
 P[A_{1}\,or\,A_{2}\,or\,...or\,A_{M}] \leq P[A_{1}] + P[A_{2}] + ... + P[A_{M}]
 $$
+
 根据这两个定律，我们可以推导如下
+
 $$
 P[\left |E_{in}(g) - E_{out}(g)\right | > \varepsilon ] \leq P[\left |E_{in}(h_{1}) - E_{out}(h_{1}) \right | > \varepsilon  \; or \; P[\left |E_{in}(h_{2}) - E_{out}(h_{2}) \right | > \varepsilon  \; or \; ... \;or \; \left |E_{in}(h_{M}) - E_{out}(h_{M}) \right | > \varepsilon] 
 $$
+
 $$
 P[\left |E_{in}(g) - E_{out}(g)\right | > \varepsilon ] \leq \sum_{m=1}^{M}P[\left |E_{in}(h_{m}) - E_{out}(h_{m}) \right |] \leq 2Mexp(-2\varepsilon ^2 N)
 $$
