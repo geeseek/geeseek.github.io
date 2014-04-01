@@ -7,6 +7,7 @@ categories: machine learning
 
 ###为什么CTR预估使用AUC来评估模型？
 ctr预估简单的解释就是预测用户点击item的概率。为什么一个回归的问题需要使用分类的方法来评估，这真是一个好问题，我尝试从下面几个关键问题去回答。
+当然，LR是一个分类算法，因为最终它给出了一个decision boundary, 决定给定case的input对应的class是什么, 如果ctr预估只是预测用户点or不点，它用auc是自然的。
 
 #### 1. ctr预估是特殊的回归问题
 
