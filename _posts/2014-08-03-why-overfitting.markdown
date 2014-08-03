@@ -16,11 +16,11 @@ categories: machine learning
 
 (1) 对于10次多项式函数产生的数据，如果我们分别使用2次和10次多项式函数来拟合（学习），哪个效果更好？ （此处思考答案1min）
 
-![Alt text](./10th_order_target_function_small.jpg)
+![Alt text](http://pan.baidu.com/s/1qWFe6Ri)
 
 
 下面是基于图中数据训练的结果，
-![Alt text](./noise_low-order_target.jpg)
+![Alt text](http://pan.baidu.com/s/1bnxogiF)
 
 |       |     2nd Order function |   10nd Order function   |
 | :-------- | --------:| :------: |
@@ -34,10 +34,10 @@ why？ 从上面面的图你可以看到训练出来的10次函数模型并不�
 
 （2） 假如没有噪音呢？ 考虑下面50次多项式函数产生的数据，如果我们分别使用2次和10次多项式来拟合，结果会有变化吗？
 
-![Alt text](./50th_order_target_function.jpg)
+![Alt text](http://pan.baidu.com/s/1ntr4ecp)
 
 下面是基于图中数据训练的结果，
-![Alt text](./noiseless_high-order_target.jpg)
+![Alt text](http://pan.baidu.com/s/1mg7LgnA)
 
 
 |       |     2nd Order function |   10nd Order function   |
@@ -71,7 +71,7 @@ $$
 f(x) = sin(\pi x)
 $$
 
-![Alt text](./2.1.jpg) ![Alt text](./2.2.jpg)
+![Alt text](http://pan.baidu.com/s/1kTupVN5) ![Alt text](http://pan.baidu.com/s/1hq5RvOo)
 
 可以看到左图为f(x)上任意两点使用直线拟合的情况，如果以常见的平方差为损失函数，我们希望能够拟合的直线如右图所示，右图明显去掉了一些斜率很大的直线（即|w1|很大），这些曲线使用f(x)的其他点来评测时会导致很大的Out of Sample Error。
 
