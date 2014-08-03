@@ -54,39 +54,50 @@ why？ 因为实际目标函数（50次多项式）远比10次多项式复杂，
 
 ####正则化(regularization)
 从上一节来看我们的结论是尝试使用简单的模型在训练数据上得到和复杂模型同样的效果，实际上多项式模型我们可以统一以下面的公式来表达：
+
 $$
 H(Q) = \sum_{q=0}^{Q}\omega_{q}x_{q}
 $$
 
 一种比较笨的方法是限制多项式的次数（hard order constraint）来降低模型复杂度，如
+
 $$
 \omega_{q} = 0 \; for \; q > 2
 $$
 
 带来的一个问题是，如何在次数固定的情况下避免过拟合呢？以使用直线（Q=1）拟合只有两个数据点正弦函数为例
+
 $$
 f(x) = sin(\pi x)
 $$
+
 ![Alt text](./2.1.jpg) ![Alt text](./2.2.jpg)
 
 可以看到左图为f(x)上任意两点使用直线拟合的情况，如果以常见的平方差为损失函数，我们希望能够拟合的直线如右图所示，右图明显去掉了一些斜率很大的直线（即|w1|很大），这些曲线使用f(x)的其他点来评测时会导致很大的Out of Sample Error。
 
 从上面的例子，我们可以改进一下模型的限制，如下所示
+
 $$
 \sum_{q=0}^{Q}\omega_{q}^{2} \leq C
 $$
+
 通过C的设置，可以避免上面例子中|w1|过大的情况。
 当然你也可以将限制变为如下的样子(low-order regularizer)
+
 $$
 \sum_{q=0}^{Q}q\omega_{q}^{2} \leq C
 $$
+
 这样可以同时考虑多项式的次数和同次数下参数的选择。
 
 加入regularization后，我们的优化目标变成：
+
 $$
 min\;E_{in}(\omega)  \; subject \; to \; \omega^{T}\omega \leq C
 $$
+
 这里有两个问题：一是带约束的优化问题不太好求解，而是这样实际上已经改变了可选择的参数范围，模型的复杂度降低(VC-bound)。实际上，经过数学上的证明（较为繁琐、此次略去），可以将上面的优化目标转化为下面等价的无约束的优化目标：
+
 $$
 min\;E_{in}(w) + \lambda_{C}\omega^{T}\omega 
 $$
@@ -94,9 +105,11 @@ $$
 即大家常见的regularization方式，值得注意的是这种方式没有改变模型的vc-dimension，而是改变了learning的的算法。
 
 为什么regularization可以缓解overfitting的问题？回顾VC-bound理论：
+
 $$
 E_{out}(h) \leq E_{in}(h) + \Omega(h)
 $$
+
 regulaization实际上是保证第一部分不变的情况下，降低了第二部分的值（模型的复杂度）。
 
 ####验证(validation)
@@ -115,47 +128,65 @@ regulaization实际上是保证第一部分不变的情况下，降低了第二�
 $$
     E_{val}(g^{-}) = \frac{1}{K}\sum_{x_{n}\in D_{val}}e(g^{-}(x_{n}),y_{n})
 $$
+
 $$
 g^{-}:在去除K条数据后的训练集上找到的最优假设 
 $$
+
 e为损失函数，如平方差函数。为什么validation上的Error可以用来预估out of sample error,回顾一下hoeffdin不定式关于in sample error和out of sample的关系：
+
 $$
    E_{out} \leq E_{in} + O(\sqrt{\frac{1}{N} ln(\frac{d_{vc}}{\sigma}}))
 $$
+
 在validation这个例子中，只有一个候选假设(如果多个假设，则是model selection问题), 样本数N为K，在误差范围指定的情况下， 有：
+
 $$
    E_{out}(g^{-}) \leq E_{val}(g^{-}) + O(\frac{1}{\sqrt{K}})
 $$
+
 我们不加证明的认为（原则上训练数据加大产生的模型更好）
+
 $$
    E_{out}(g) \leq E_{out}(g^{-})
 $$
+
 所以最终
+
 $$
   E_{out}(g) \leq E_{val}(g^{-}) + O(\frac{1}{\sqrt{K}})
 $$
+
 所以，validation之所以可以用来估计out of sample error的本质原因是因为它的模型复杂度(只有一个候选假设)远远低于模型训练过程中的模型假设空间的复杂度。
 此外，validation的一个重要作用是model selection（不同的model可以使lambda的选择不同，也可是percentron和LR这种模型假设上的不同），假设需要在M个模型中选择，那么则有：
+
 $$
   E_{out}(g) \leq E_{val}(g^{-}) + O(\sqrt{\frac{lnM}{K}})
 $$
+
 由于M一般也远小于训练过程中的模型假设复杂度， 所以validation error最小的模型相应的out of sample error也更小。
 
 ####交叉验证(cross validation)
 在validation集合构造时，我们需要选择合适的K来构造验证集。因为根据
+
 $$
   E_{out}(g) \leq E_{out}(g^{-}) \leq  E_{val}(g^{-}) + O(\sqrt{\frac{lnM}{K}})
 $$
+
 根据后一个不等式，K越大，对于out of sample error误差的估计就越小（上界越低）。是不是真的K越大越好？
 当然不是，实际上，K的大小也会影响第一个不等式，K越小（如k=1），
+
 $$
    E_{out}(g) 和 E_{out}(g^{-})  越接近
 $$
+
 所以，K的选择似乎陷入一个两难的境地。
 为了解决这个问题，实际中我们使用cross validation来预估out of sample error，假设K=1，但我们计算validation error时，分别计算每个样本作为为validation数据集的error的平均值。
+
 $$
 E_{CV} = \frac{1}{N} \sum_{n=1}^{N}e_{n}
 $$
+
 在数学上并不能很严格地证明cross validation能够保证获得非常低的误差上界，然而在实践中被证明比单次的validation更有效地预估out of sample error.同时，如果K=1，有M个候选模型，那么计算量会达到O(M*N)的级别，在实践中，处于性能的考虑，常常将数据随机等比例切分为V份，然后分别使用1份来作为validation集合，这种方法成为v-fold cross validation，实际中v的取值范围为5~10。
 
 
