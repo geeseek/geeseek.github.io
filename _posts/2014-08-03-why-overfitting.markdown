@@ -71,9 +71,13 @@ $$
 f(x) = sin(\pi x)
 $$
 
-![Alt text](http://ww4.sinaimg.cn/bmiddle/005I3BEujw1ej0sapb4stj30vk0qegs2.jpg) ![Alt text](http://ww2.sinaimg.cn/bmiddle/005I3BEujw1ej0sau3cxlj30vk0nqag8.jpg)
+![Alt text](http://ww4.sinaimg.cn/bmiddle/005I3BEujw1ej0sapb4stj30vk0qegs2.jpg) 
+图5:f(x)上任意两点使用直线拟合的情况
 
-可以看到左图为f(x)上任意两点使用直线拟合的情况，如果以常见的平方差为损失函数，我们希望能够拟合的直线如右图所示，右图明显去掉了一些斜率很大的直线（即|w1|很大），这些曲线使用f(x)的其他点来评测时会导致很大的Out of Sample Error。
+![Alt text](http://ww2.sinaimg.cn/bmiddle/005I3BEujw1ej0sau3cxlj30vk0nqag8.jpg)
+图6: 我们希望能够拟合的直线
+
+可以看到，如果以常见的平方差为损失函数，图6明显去掉了一些斜率很大的直线（即|w1|很大），这些曲线使用f(x)的其他数据点来评测时会导致很大的Out of Sample Error。
 
 从上面的例子，我们可以改进一下模型的限制，如下所示
 
