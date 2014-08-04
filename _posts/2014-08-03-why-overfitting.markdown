@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "why overfitting"
+title:  "why overfitting(3)"
 date:   2014-08-03 11:56:37
 categories: machine learning 
 ---
